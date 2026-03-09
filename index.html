@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StratX Algo | Systematic Index Trading Strategies India</title>
+  <meta name="description" content="StratX Algo delivers systematic index strategies for intraday trading. Research-driven algo trading platform for disciplined capital allocation in India."/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23EAB308'/%3E%3Ctext x='16' y='21' font-size='13' font-family='sans-serif' fill='black' text-anchor='middle' font-weight='bold'%3ESA%3C/text%3E%3C/svg%3E"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { --gold:#EAB308; --gold-l:#FDE047; --gold-d:#CA8A04; }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Plus Jakarta Sans',sans-serif; background:#000; color:#e5e7eb; overflow-x:hidden; }
+    .font-display { font-family:'Outfit',sans-serif; }
+    .mono { font-family:'DM Mono',monospace; }
+
+    .gold-text { color:#EAB308; }
+    .gold-grad-text {
+      background:linear-gradient(120deg,#CA8A04 0%,#EAB308 40%,#FDE047 65%,#EAB308 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    .gold-btn {
+      background:linear-gradient(135deg,#78350F 0%,#CA8A04 30%,#EAB308 58%,#FDE047 80%,#EAB308 100%);
+      color:#000; font-weight:700; transition:all .25s;
+      box-shadow:0 4px 22px rgba(234,179,8,.28);
+    }
+    .gold-btn:hover {
+      background:linear-gradient(135deg,#CA8A04 0%,#EAB308 40%,#FDE047 72%,#EAB308 100%);
+      box-shadow:0 6px 30px rgba(253,224,71,.38); transform:translateY(-1px);
+    }
+    .glass { background:rgba(255,255,255,.035); border:1px solid rgba(255,255,255,.07); backdrop-filter:blur(10px); }
+    .gold-border { border:1px solid rgba(234,179,8,.3); }
+    .gold-glow { box-shadow:0 0 40px rgba(234,179,8,.12); }
+
+    /* Section label pill */
+    .s-label {
+      display:inline-block; font-family:'DM Mono',monospace; font-size:.72rem;
+      font-weight:600; letter-spacing:.18em; text-transform:uppercase;
+      color:#EAB308; padding:.3rem .9rem; border:1px solid rgba(234,179,8,.28);
+      border-radius:999px; background:rgba(234,179,8,.07); margin-bottom:.85rem;
+    }
+    /* HOW WE FIX IT — gold, not green */
+    .s-label-gold { color:#EAB308 !important; border-color:rgba(234,179,8,.28) !important; background:rgba(234,179,8,.07) !important; }
+
+    /* Nav / modal */
+    #mobile-menu { display:none; }
+    #mobile-menu.open { display:block; }
+    #modal-overlay { display:none; }
+    #modal-overlay.open { display:flex; }
+    #fixed-cta { display:none; }
+    @media(max-width:768px) { #fixed-cta { display:flex; } }
+
+    /* Reveal */
+    .reveal { opacity:0; transform:translateY(22px); transition:opacity .6s ease,transform .6s ease; }
+    .reveal.in { opacity:1; transform:translateY(0); }
+
+    /* FAQ chevron */
+    details summary::-webkit-details-marker { display:none; }
+    details summary { list-style:none; }
+    details[open] .faq-chev { transform:rotate(180deg); }
+    .faq-chev { transition:transform .22s; }
+
+    /* Grid bg */
+    .grid-bg {
+      background-image:linear-gradient(rgba(234,179,8,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(234,179,8,.055) 1px,transparent 1px);
+      background-size:56px 56px;
+    }
+
+    /* Responsive font helpers */
+    .h-display { font-size:clamp(2rem,5vw,3.6rem); line-height:1.1; }
+    .h-section  { font-size:clamp(1.85rem,4.2vw,3.1rem); line-height:1.15; }
+    .h-sub      { font-size:clamp(.85rem,1.3vw,.98rem); }
+
+    /* Hero image — always show full square without cropping */
+    .hero-img-wrap {
+      position:relative; border-radius:1rem; overflow:hidden;
+      border:1px solid rgba(234,179,8,.3);
+      box-shadow:0 0 40px rgba(234,179,8,.12);
+      max-width:440px; width:100%;
+      aspect-ratio:1/1;
+    }
+    .hero-img-wrap img {
+      width:100%; height:100%;
+      object-fit:contain;
+      display:block;
+      background:#000;
+    }
+
+    /* Tier bullet alignment fix */
+    .tier-list { list-style:none; padding:0; margin:0; }
+    .tier-list li {
+      display:flex; align-items:flex-start; gap:10px;
+      padding:0.4rem 0; line-height:1.45;
+    }
+    .tier-dot {
+      width:8px; height:8px; border-radius:50%;
+      background:#EAB308; flex-shrink:0; margin-top:5px;
+    }
+  </style>
+</head>
+<body class="bg-black text-gray-200">
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-black/96 backdrop-blur-lg border-b border-yellow-900/20">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 py-1.5 flex items-center justify-between gap-3">
+    <a href="#home" aria-label="StratX Algo" class="shrink-0">
+      <img src="https://bkstarling.github.io/p1/v1_STRATX_PNG.png" alt="StratX Algo" class="h-14 sm:h-16 w-auto object-contain"/>
+    </a>
+
+    <ul class="hidden lg:flex items-center gap-5 xl:gap-7 text-sm font-medium text-gray-400">
+      <li><a href="#home"         class="hover:text-yellow-400 transition-colors">Home</a></li>
+      <li><a href="#why"          class="hover:text-yellow-400 transition-colors">Why StratX</a></li>
+      <li><a href="#how-it-works" class="hover:text-yellow-400 transition-colors">How It Works</a></li>
+      <li><a href="#features"     class="hover:text-yellow-400 transition-colors">Features</a></li>
+      <li><a href="#services"     class="hover:text-yellow-400 transition-colors">Services</a></li>
+      <li><a href="#testimonials" class="hover:text-yellow-400 transition-colors">Testimonials</a></li>
+      <li><a href="#contact"      class="hover:text-yellow-400 transition-colors">Contact</a></li>
+    </ul>
+
+    <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+      <a href="https://trade.stratxalgo.in" target="_blank"
+         class="hidden sm:inline-flex items-center gap-2 px-4 py-2 gold-btn rounded-lg text-sm font-bold">
+        <i class="fa-solid fa-bolt text-xs"></i> Trade Now
+      </a>
+      <button id="hamburger" onclick="toggleMenu()" aria-label="Menu"
+              class="lg:hidden w-9 h-9 flex items-center justify-center text-gray-300 border border-gray-700 rounded-lg hover:border-yellow-600 transition-colors">
+        <i class="fa-solid fa-bars text-base" id="ham-icon"></i>
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" class="lg:hidden bg-black border-t border-yellow-900/15 px-4 py-5">
+    <ul class="flex flex-col gap-3 text-sm font-medium text-gray-300">
+      <li><a href="#home"         onclick="closeMenu()" class="hover:text-yellow-400 block py-1.5 transition-colors">Home</a></li>
+      <li><a href="#why"          onclick="closeMenu()" class="hover:text-yellow-400 block py-1.5 transition-colors">Why StratX</a></li>
+      <li><a href="#how-it-works" onclick="closeMenu()" class="hover:text-yellow-400 block py-1.5 transition-colors">How It Works</a></li>
+      <li><a href="#features"     onclick="closeMenu()" class="hover:text-yellow-400 block py-1.5 transition-colors">Features</a></li>
+      <li><a href="#services"     onclick="closeMenu()" class="hover:text-yellow-400 block py-1.5 transition-colors">Services</a></li>
+      <li><a href="#testimonials" onclick="closeMenu()" class="hover:text-yellow-400 block py-1.5 transition-colors">Testimonials</a></li>
+      <li><a href="#contact"      onclick="closeMenu()" class="hover:text-yellow-400 block py-1.5 transition-colors">Contact</a></li>
+      <li class="pt-2">
+        <a href="https://trade.stratxalgo.in" target="_blank"
+           class="flex items-center justify-center gap-2 px-4 py-3 gold-btn rounded-xl text-sm font-bold">
+          <i class="fa-solid fa-bolt text-xs"></i> Trade Now
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section id="home" class="min-h-screen flex items-center pt-24 sm:pt-28 pb-14 bg-black relative overflow-hidden">
+  <div class="absolute inset-0 grid-bg pointer-events-none"></div>
+  <div class="absolute top-1/2 left-1/3 w-72 sm:w-[460px] h-72 sm:h-[460px] bg-yellow-600/8 rounded-full blur-3xl pointer-events-none -translate-y-1/2"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-16 items-center">
+
+      <div class="reveal">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 border border-yellow-700/35 bg-yellow-900/12 rounded-full mb-5 sm:mb-6">
+          <span class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse shrink-0"></span>
+          <span class="mono text-xs text-yellow-400 font-medium tracking-wide">LIVE ALGO STRATEGIES · NSE and BSE</span>
+        </div>
+
+        <h1 class="font-display font-bold leading-[1.1] tracking-tight mb-5 h-display">
+          Trade With <span class="gold-grad-text">Structure.</span><br/>
+          Not <em class="not-italic font-light text-gray-600">Emotion.</em><br/>
+          <span class="font-normal text-gray-400" style="font-size:clamp(1.1rem,2.4vw,1.7rem);line-height:1.3;">Capital Deserves Discipline.</span>
+        </h1>
+
+        <p class="text-gray-400 leading-relaxed mb-4 max-w-lg h-sub">
+          STRATX ALGO delivers systematic index strategies designed to complement existing equity portfolios and enhance capital efficiency. Research-driven with integrated execution and forward deployment within a structured capital allocation and defined risk framework.
+        </p>
+        <p class="text-sm text-yellow-400/80 font-semibold mb-7 sm:mb-8 border-l-2 border-yellow-600 pl-3">
+          We Build. You Deploy. One Click Activation.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a href="https://trade.stratxalgo.in" target="_blank"
+             class="inline-flex items-center justify-center gap-2 px-6 py-3.5 gold-btn rounded-xl font-display font-bold text-sm sm:text-base">
+            <i class="fa-solid fa-bolt text-xs"></i>
+            Explore Baskets and Tiers
+            <i class="fa-solid fa-arrow-right text-xs opacity-60"></i>
+          </a>
+          <button onclick="openModal()"
+                  class="inline-flex items-center justify-center gap-2 px-5 py-3.5 border border-yellow-700/35 hover:border-yellow-400 text-gray-300 hover:text-yellow-400 font-semibold rounded-xl transition-all text-sm sm:text-base">
+            <i class="fa-regular fa-calendar text-sm"></i>
+            Book Strategy Discussion
+          </button>
+        </div>
+
+        <div class="flex flex-wrap gap-4 sm:gap-6 mt-8 pt-7 border-t border-gray-800/80">
+          <div><div class="mono text-xl sm:text-2xl font-bold gold-grad-text">100+</div><div class="text-xs text-gray-500 mt-0.5">Active Traders</div></div>
+          <div class="w-px bg-gray-800 self-stretch"></div>
+          <div><div class="mono text-xl sm:text-2xl font-bold text-blue-400">99.9%</div><div class="text-xs text-gray-500 mt-0.5">Uptime</div></div>
+          <div class="w-px bg-gray-800 self-stretch"></div>
+          <div><div class="mono text-xl sm:text-2xl font-bold gold-grad-text">₹6L+</div><div class="text-xs text-gray-500 mt-0.5">Available from ₹6L</div></div>
+          <div class="w-px bg-gray-800 self-stretch"></div>
+          <div><div class="mono text-xl sm:text-2xl font-bold text-blue-400">Multi</div><div class="text-xs text-gray-500 mt-0.5">Year Validated</div></div>
+        </div>
+      </div>
+
+      <!-- Hero image — full square, no crop -->
+      <div class="reveal hidden lg:flex justify-center">
+        <div class="hero-img-wrap">
+          <img src="https://raw.githubusercontent.com/bkstarling/p1/refs/heads/main/hero.png"
+               alt="StratX Algo Trading Dashboard"
+               loading="lazy"/>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ WHY TRADERS FAIL ═══════════ -->
+<section id="why" class="py-16 sm:py-24 bg-gray-950">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-10 sm:mb-12 reveal">
+      <span class="s-label">THE PROBLEM</span>
+      <h2 class="font-display font-bold text-white h-section">Why Most Traders <span class="gold-grad-text">Fail</span></h2>
+      <p class="text-gray-500 max-w-lg mx-auto mt-3 h-sub">Retail traders lose not because markets are unfair, but because decisions are driven by fear, greed, and inconsistency.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10 sm:mb-12 reveal">
+      <div class="glass rounded-2xl p-5 sm:p-6 hover:border-red-800/45 transition-all group">
+        <div class="w-10 h-10 bg-red-900/25 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+          <i class="fa-solid fa-brain text-red-400"></i>
+        </div>
+        <h3 class="font-display font-semibold text-base mb-2 text-white">Emotional Decisions</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">FOMO entries, panic exits, and revenge trading destroy capital systematically over time.</p>
+      </div>
+      <div class="glass rounded-2xl p-5 sm:p-6 hover:border-yellow-800/45 transition-all group">
+        <div class="w-10 h-10 bg-yellow-900/20 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+          <i class="fa-solid fa-shuffle text-yellow-400"></i>
+        </div>
+        <h3 class="font-display font-semibold text-base mb-2 text-white">Inconsistent Execution</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">Manual trading is riddled with delays, hesitation, and skipped entries from strategy drift.</p>
+      </div>
+      <div class="glass rounded-2xl p-5 sm:p-6 hover:border-blue-800/45 transition-all group">
+        <div class="w-10 h-10 bg-blue-900/25 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+          <i class="fa-solid fa-rupee-sign text-blue-400"></i>
+        </div>
+        <h3 class="font-display font-semibold text-base mb-2 text-white">Poor Capital Allocation</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">Over-concentration in single trades and no position-sizing discipline leads to oversized losses.</p>
+      </div>
+      <div class="glass rounded-2xl p-5 sm:p-6 hover:border-orange-800/45 transition-all group">
+        <div class="w-10 h-10 bg-orange-900/20 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+          <i class="fa-solid fa-triangle-exclamation text-orange-400"></i>
+        </div>
+        <h3 class="font-display font-semibold text-base mb-2 text-white">Undefined Risk Exposure</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">No predefined drawdown limits, no stoploss. Just hope masquerading as a trading strategy.</p>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <!-- HOW WE FIX IT label — gold, not green -->
+      <div class="text-center mb-4"><span class="s-label s-label-gold">HOW WE FIX IT</span></div>
+      <!-- Gold box for the fix section -->
+      <div class="rounded-2xl p-8 sm:p-10 text-center text-black"
+           style="background:linear-gradient(135deg,#78350F 0%,#CA8A04 28%,#EAB308 55%,#FDE047 80%,#EAB308 100%);">
+        <i class="fa-solid fa-check-circle text-3xl mb-3 opacity-50"></i>
+        <h3 class="font-display font-bold mb-3" style="font-size:clamp(1.5rem,3.5vw,2.3rem);line-height:1.15;">
+          StratX Algo Solves This. Systematically.
+        </h3>
+        <p class="text-black/70 max-w-xl mx-auto mb-6 text-sm sm:text-base">
+          We remove human bias with rules-based execution, predefined risk per trade, and a basket deployment model so your capital works for you, not against you.
+        </p>
+        <button onclick="openModal()"
+                class="inline-flex items-center gap-2 px-6 py-3 bg-black text-yellow-400 font-display font-bold rounded-xl hover:bg-gray-900 transition-all shadow-lg text-sm sm:text-base">
+          <i class="fa-regular fa-calendar"></i> Book Strategy Discussion
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ HOW IT WORKS ═══════════ -->
+<section id="how-it-works" class="py-16 sm:py-24 bg-black">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-10 sm:mb-12 reveal">
+      <span class="s-label">PROCESS</span>
+      <h2 class="font-display font-bold text-white h-section">How It <span class="gold-grad-text">Works</span></h2>
+      <p class="text-gray-500 mt-3 max-w-md mx-auto text-sm sm:text-base">Simple steps to start algorithmic trading on NSE and BSE</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 reveal">
+      <div class="glass rounded-2xl p-6 sm:p-8 text-center hover:border-yellow-700/35 transition-all group gold-glow">
+        <div class="w-14 h-14 gold-btn rounded-2xl flex items-center justify-center mx-auto mb-5 font-display font-extrabold text-2xl group-hover:scale-110 transition-transform">1</div>
+        <h3 class="font-display font-semibold text-lg mb-3 text-white">Sign Up and Connect</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Create your account and connect your trading platform via API integration with your preferred NSE or BSE broker.</p>
+        <div class="mt-4 inline-flex items-center gap-1.5 text-xs text-yellow-400 font-medium"><i class="fa-solid fa-plug-circle-check"></i> Broker API Integration</div>
+      </div>
+      <div class="glass rounded-2xl p-6 sm:p-8 text-center hover:border-yellow-700/35 transition-all group">
+        <div class="w-14 h-14 gold-btn rounded-2xl flex items-center justify-center mx-auto mb-5 font-display font-extrabold text-2xl group-hover:scale-110 transition-transform">2</div>
+        <h3 class="font-display font-semibold text-lg mb-3 text-white">Configure Strategy</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Select your basket tier (ALPHA, ALPHA+, or ALPHA X), set your capital allocation, and configure stoploss parameters to match your risk profile.</p>
+        <div class="mt-4 inline-flex items-center gap-1.5 text-xs text-yellow-400 font-medium"><i class="fa-solid fa-sliders"></i> Risk-Defined Setup</div>
+      </div>
+      <div class="glass rounded-2xl p-6 sm:p-8 text-center hover:border-yellow-700/35 transition-all group gold-glow">
+        <div class="w-14 h-14 gold-btn rounded-2xl flex items-center justify-center mx-auto mb-5 font-display font-extrabold text-2xl group-hover:scale-110 transition-transform">3</div>
+        <h3 class="font-display font-semibold text-lg mb-3 text-white">Automate and Monitor</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Let the algorithms trade systematically while you monitor performance through our dashboard at trade.stratxalgo.in</p>
+        <div class="mt-4 inline-flex items-center gap-1.5 text-xs text-yellow-400 font-medium"><i class="fa-solid fa-chart-line"></i> Real-Time Monitoring</div>
+      </div>
+    </div>
+
+    <div class="mt-7 reveal">
+      <div class="glass rounded-xl p-4 sm:p-5 border border-yellow-700/22 flex flex-col sm:flex-row items-center gap-4 max-w-2xl mx-auto text-center sm:text-left">
+        <div class="w-10 h-10 bg-yellow-900/25 rounded-xl flex items-center justify-center shrink-0">
+          <i class="fa-solid fa-clock text-yellow-400"></i>
+        </div>
+        <div>
+          <p class="text-sm font-semibold text-yellow-300">Activation Timing is Critical</p>
+          <p class="text-xs text-gray-500 mt-0.5">Activate the algo between 8:30 AM and 9:15 AM on specified days. Late activation may alter algo logic. Timing discipline is part of the system.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FEATURES ═══════════ -->
+<section id="features" class="py-16 sm:py-24 bg-gray-950">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-10 sm:mb-12 reveal">
+      <span class="s-label">WHAT MAKES US DIFFERENT</span>
+      <h2 class="font-display font-bold text-white h-section">We Build. <span class="gold-grad-text">You Deploy.</span></h2>
+      <p class="text-gray-500 mt-2 text-sm sm:text-base">Built for Systematic Capital.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-4xl mx-auto reveal">
+      <div class="group glass rounded-2xl p-6 sm:p-7 hover:border-yellow-700/35 transition-all">
+        <div class="w-12 h-12 bg-yellow-900/20 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+          <i class="fa-solid fa-chart-line text-yellow-400 text-lg"></i>
+        </div>
+        <h3 class="font-display font-semibold text-lg mb-2 text-white">Multi-Year Validated Strategies</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">All NIFTY 50 and Sensex strategies validated across multiple years of historical NSE and BSE index data. Proven edge across multiple market regimes.</p>
+        <div class="mt-4 flex items-center gap-1.5 text-xs text-yellow-400 font-medium"><i class="fa-solid fa-check-circle"></i> Historical validation</div>
+      </div>
+      <div class="group glass rounded-2xl p-6 sm:p-7 hover:border-blue-700/35 transition-all">
+        <div class="w-12 h-12 bg-blue-900/20 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+          <i class="fa-solid fa-shield-halved text-blue-400 text-lg"></i>
+        </div>
+        <h3 class="font-display font-semibold text-lg mb-2 text-white">Risk Controlled Execution</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">Predefined stoploss on every position. Daily loss limits enforce capital preservation. Your downside is always controlled before deployment begins.</p>
+        <div class="mt-4 flex items-center gap-1.5 text-xs text-blue-400 font-medium"><i class="fa-solid fa-check-circle"></i> Defined stoploss</div>
+      </div>
+      <div class="group glass rounded-2xl p-6 sm:p-7 hover:border-yellow-700/35 transition-all">
+        <div class="w-12 h-12 bg-yellow-900/20 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+          <i class="fa-solid fa-gauge text-yellow-400 text-lg"></i>
+        </div>
+        <h3 class="font-display font-semibold text-lg mb-2 text-white">Multi Regime Design</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">Strategies adapt across trending, range-bound, and high-volatility markets. Not locked to a single regime. Systematic across all conditions.</p>
+        <div class="mt-4 flex items-center gap-1.5 text-xs text-yellow-400 font-medium"><i class="fa-solid fa-check-circle"></i> Regime-adaptive</div>
+      </div>
+      <div class="group glass rounded-2xl p-6 sm:p-7 hover:border-blue-700/35 transition-all">
+        <div class="w-12 h-12 bg-blue-900/20 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+          <i class="fa-solid fa-layer-group text-blue-400 text-lg"></i>
+        </div>
+        <h3 class="font-display font-semibold text-lg mb-2 text-white">Tiered Capital Access</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">Start with ₹6L and scale to ALPHA, ALPHA+, or ALPHA X tiers. Each tier optimizes position sizing and capital allocation discipline across your portfolio.</p>
+        <div class="mt-4 flex items-center gap-1.5 text-xs text-blue-400 font-medium"><i class="fa-solid fa-check-circle"></i> Available from ₹6L</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SERVICES ═══════════ -->
+<section id="services" class="py-16 sm:py-24 bg-black">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-10 sm:mb-12 reveal">
+      <span class="s-label">SERVICES</span>
+      <h2 class="font-display font-bold text-white h-section">What We <span class="gold-grad-text">Offer</span></h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl mx-auto reveal">
+      <div class="glass rounded-2xl p-6 sm:p-8 hover:border-yellow-700/35 transition-all group">
+        <div class="w-14 h-14 gold-btn rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+          <i class="fa-solid fa-chart-column text-black text-xl"></i>
+        </div>
+        <h3 class="font-display font-bold text-xl sm:text-2xl mb-3 gold-grad-text">Trade Management Services</h3>
+        <p class="text-gray-400 text-sm leading-relaxed mb-5">Trade management services are an invaluable tool for anyone looking to trade more effectively and achieve better returns on their investments. Whether you are a professional trader or just starting out, these services help you optimize your trading strategy by building custom technology solutions to suit your needs.</p>
+        <div class="space-y-2 text-sm text-gray-500 mb-5">
+          <div class="flex items-center gap-2"><i class="fa-solid fa-check text-yellow-400 text-xs shrink-0"></i> Structured basket deployment</div>
+          <div class="flex items-center gap-2"><i class="fa-solid fa-check text-yellow-400 text-xs shrink-0"></i> Predefined stoploss management</div>
+          <div class="flex items-center gap-2"><i class="fa-solid fa-check text-yellow-400 text-xs shrink-0"></i> Capital allocation discipline</div>
+        </div>
+        <div class="mb-5">
+          <div class="text-xs text-yellow-400 font-semibold mb-2 uppercase tracking-widest mono">Drawdown Options</div>
+          <div class="space-y-2">
+            <div class="bg-gray-900/70 rounded-lg px-4 py-2.5 text-sm text-gray-300 flex items-center justify-between border border-gray-800 hover:border-yellow-700/35 transition-all cursor-pointer">
+              <span>Daily Drawdown Control</span><i class="fa-solid fa-chevron-right text-xs text-yellow-500"></i>
+            </div>
+            <div class="bg-gray-900/70 rounded-lg px-4 py-2.5 text-sm text-gray-300 flex items-center justify-between border border-gray-800 hover:border-yellow-700/35 transition-all cursor-pointer">
+              <span>Weekly Drawdown Limit</span><i class="fa-solid fa-chevron-right text-xs text-yellow-500"></i>
+            </div>
+            <div class="bg-gray-900/70 rounded-lg px-4 py-2.5 text-sm text-gray-300 flex items-center justify-between border border-gray-800 hover:border-yellow-700/35 transition-all cursor-pointer">
+              <span>Monthly Drawdown Cap</span><i class="fa-solid fa-chevron-right text-xs text-yellow-500"></i>
+            </div>
+            <div class="bg-gray-900/70 rounded-lg px-4 py-2.5 text-sm text-gray-300 flex items-center justify-between border border-gray-800 hover:border-yellow-700/35 transition-all cursor-pointer">
+              <span>Maximum Portfolio Drawdown</span><i class="fa-solid fa-chevron-right text-xs text-yellow-500"></i>
+            </div>
+          </div>
+        </div>
+        <a href="https://trade.stratxalgo.in" target="_blank"
+           class="inline-flex items-center gap-2 px-5 py-3 gold-btn rounded-xl text-sm font-bold">
+          <i class="fa-solid fa-bolt text-xs"></i> Enquire Now
+        </a>
+      </div>
+
+      <div class="glass rounded-2xl p-6 sm:p-8 hover:border-blue-700/35 transition-all group">
+        <div class="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+          <i class="fa-solid fa-robot text-white text-xl"></i>
+        </div>
+        <h3 class="font-display font-bold text-xl sm:text-2xl mb-3 text-blue-400">Trade Automation Services</h3>
+        <p class="text-gray-400 text-sm leading-relaxed mb-5">Trade automation services eliminate the need for manual trading, which can be time-consuming and prone to errors. Trades are executed automatically based on preset rules and parameters, allowing investors to take advantage of market fluctuations in real-time on both NSE and BSE.</p>
+        <div class="space-y-2 text-sm text-gray-500 mb-6">
+          <div class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-400 text-xs shrink-0"></i> Rules-based auto execution</div>
+          <div class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-400 text-xs shrink-0"></i> Zero emotional intervention</div>
+          <div class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-400 text-xs shrink-0"></i> Real-time market response</div>
+          <div class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-400 text-xs shrink-0"></i> NSE and BSE index coverage</div>
+        </div>
+        <a href="https://trade.stratxalgo.in" target="_blank"
+           class="inline-flex items-center gap-2 px-5 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-sm transition-all shadow-lg shadow-blue-900/25">
+          <i class="fa-solid fa-bolt text-xs"></i> Enquire Now
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TESTIMONIALS ═══════════ -->
+<section id="testimonials" class="py-16 sm:py-24 bg-gray-950">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-10 sm:mb-12 reveal">
+      <span class="s-label">TESTIMONIALS</span>
+      <h2 class="font-display font-bold text-white h-section">Traders Who <span class="gold-grad-text">Switched to Structure</span></h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 reveal">
+      <div class="glass rounded-2xl p-6 sm:p-7 hover:border-yellow-700/22 transition-all">
+        <div class="flex gap-1 mb-4">
+          <i class="fa-solid fa-star text-yellow-400 text-sm"></i><i class="fa-solid fa-star text-yellow-400 text-sm"></i><i class="fa-solid fa-star text-yellow-400 text-sm"></i><i class="fa-solid fa-star text-yellow-400 text-sm"></i><i class="fa-solid fa-star text-yellow-400 text-sm"></i>
+        </div>
+        <i class="fa-solid fa-quote-left text-yellow-900/60 text-4xl mb-3 block"></i>
+        <p class="text-gray-300 text-base leading-relaxed mb-6">"StratX transformed my trading completely. I used to stare at screens for 6 hours holding losses emotionally. Now the system handles execution and I just review P&amp;L at end of day. No more sleepless nights."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 gold-btn rounded-full flex items-center justify-center font-display font-bold text-black shrink-0">R</div>
+          <div><div class="font-semibold text-sm font-display text-white">Rohan Sharma</div><div class="text-xs text-gray-500 mono">Mumbai · ₹15L Capital · 11 Months</div></div>
+        </div>
+      </div>
+      <div class="glass rounded-2xl p-6 sm:p-7 hover:border-blue-700/22 transition-all">
+        <div class="flex gap-1 mb-4">
+          <i class="fa-solid fa-star text-yellow-400 text-sm"></i><i class="fa-solid fa-star text-yellow-400 text-sm"></i><i class="fa-solid fa-star text-yellow-400 text-sm"></i><i class="fa-solid fa-star text-yellow-400 text-sm"></i><i class="fa-solid fa-star text-yellow-400 text-sm"></i>
+        </div>
+        <i class="fa-solid fa-quote-left text-blue-900/60 text-4xl mb-3 block"></i>
+        <p class="text-gray-300 text-base leading-relaxed mb-6">"As someone with an equity portfolio already, I was skeptical about adding intraday exposure. StratX's basket model and defined drawdown limits convinced me. Excellent risk management and the platform is rock-solid."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-display font-bold text-white shrink-0">P</div>
+          <div><div class="font-semibold text-sm font-display text-white">Priya Patel</div><div class="text-xs text-gray-500 mono">Bengaluru · ₹25L Capital · 7 Months</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-10 reveal">
+      <a href="https://trade.stratxalgo.in" target="_blank"
+         class="inline-flex items-center gap-2.5 px-7 py-4 gold-btn rounded-xl font-display font-bold text-sm sm:text-base">
+        <i class="fa-solid fa-bolt"></i> Join Them. Trade Now.
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CONTACT ═══════════ -->
+<section id="contact" class="py-16 sm:py-24 bg-black">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center reveal">
+    <span class="s-label">GET IN TOUCH</span>
+    <h2 class="font-display font-bold text-white h-section">Ready to <span class="gold-grad-text">Start?</span></h2>
+    <p class="text-gray-500 mt-3 mb-1.5 text-sm sm:text-base">
+      Visit <a href="https://trade.stratxalgo.in" class="text-yellow-400 hover:underline mono text-sm" target="_blank">trade.stratxalgo.in</a> to explore strategies and start automated trading today.
+    </p>
+    <p class="text-gray-600 text-sm mb-10">Our team is available Mon to Fri, 9:00 AM to 5:30 PM IST</p>
+
+    <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+      <a href="https://wa.me/+917676766477?text=I'm%20interested%20in%20StratX%20Algo" target="_blank" rel="noopener"
+         class="flex items-center gap-3 px-6 py-3.5 gold-btn rounded-xl font-semibold w-full sm:w-auto justify-center text-sm sm:text-base">
+        <i class="fa-brands fa-whatsapp text-xl"></i> Chat on WhatsApp
+      </a>
+      <a href="mailto:stratxalgo@gmail.com"
+         class="flex items-center gap-3 px-6 py-3.5 glass hover:border-yellow-700/35 text-gray-200 font-semibold rounded-xl transition-all w-full sm:w-auto justify-center text-sm sm:text-base">
+        <i class="fa-regular fa-envelope text-lg"></i> stratxalgo@gmail.com
+      </a>
+      <button onclick="openModal()"
+              class="flex items-center gap-3 px-6 py-3.5 border border-gray-700 hover:border-yellow-500 text-gray-300 hover:text-yellow-400 font-semibold rounded-xl transition-all w-full sm:w-auto justify-center text-sm sm:text-base">
+        <i class="fa-regular fa-calendar text-lg"></i> Book a Call
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FAQ ═══════════ -->
+<section class="py-16 sm:py-24 bg-gray-950">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-10 sm:mb-12 reveal">
+      <span class="s-label">FAQ</span>
+      <h2 class="font-display font-bold text-white h-section">Frequently Asked <span class="gold-grad-text">Questions</span></h2>
+    </div>
+
+    <div class="space-y-2.5 reveal">
+
+      <details class="glass rounded-xl border border-gray-800 hover:border-yellow-700/30 transition-all">
+        <summary class="flex items-center justify-between p-4 sm:p-5 font-semibold text-gray-200 hover:text-yellow-400 transition-colors cursor-pointer text-sm sm:text-base">
+          What is STRATX Algo?
+          <i class="fa-solid fa-chevron-down text-sm text-yellow-500 faq-chev shrink-0 ml-3"></i>
+        </summary>
+        <p class="px-4 sm:px-5 pb-4 sm:pb-5 text-gray-500 text-sm leading-relaxed">STRATX is a research-driven systematic intraday index strategy platform that deploys rule-based basket strategies within a structured capital allocation and defined risk framework on NSE and BSE. We do not provide tips or discretionary trading signals. We operate through predefined strategy frameworks.</p>
+      </details>
+
+      <details class="glass rounded-xl border border-gray-800 hover:border-yellow-700/30 transition-all">
+        <summary class="flex items-center justify-between p-4 sm:p-5 font-semibold text-gray-200 hover:text-yellow-400 transition-colors cursor-pointer text-sm sm:text-base">
+          How is STRATX different from regular trading signals?
+          <i class="fa-solid fa-chevron-down text-sm text-yellow-500 faq-chev shrink-0 ml-3"></i>
+        </summary>
+        <p class="px-4 sm:px-5 pb-4 sm:pb-5 text-gray-500 text-sm leading-relaxed">STRATX does not provide tips or discretionary calls. All strategies operate within predefined rules, structured risk parameters, and disciplined execution logic. Decisions are rule-driven and executed within a defined framework, not based on market opinion or emotion.</p>
+      </details>
+
+      <details class="glass rounded-xl border border-gray-800 hover:border-yellow-700/30 transition-all">
+        <summary class="flex items-center justify-between p-4 sm:p-5 font-semibold text-gray-200 hover:text-yellow-400 transition-colors cursor-pointer text-sm sm:text-base">
+          How do I use StratX Algos?
+          <i class="fa-solid fa-chevron-down text-sm text-yellow-500 faq-chev shrink-0 ml-3"></i>
+        </summary>
+        <div class="px-4 sm:px-5 pb-4 sm:pb-5 text-gray-500 text-sm leading-relaxed">
+          <p class="mb-3">Choose the algo from the list and save it. Then follow these steps:</p>
+          <div class="space-y-2.5">
+            <div class="flex items-start gap-3">
+              <span class="w-5 h-5 rounded-full gold-btn flex items-center justify-center text-black font-bold text-xs shrink-0 mt-0.5">1</span>
+              <div><strong class="text-gray-300">Validate:</strong> Analyze past performance including brokerage, slippages, taxes and charges.</div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="w-5 h-5 rounded-full gold-btn flex items-center justify-center text-black font-bold text-xs shrink-0 mt-0.5">2</span>
+              <div><strong class="text-gray-300">Forward Test:</strong> Test the algo with virtual capital first.</div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="w-5 h-5 rounded-full gold-btn flex items-center justify-center text-black font-bold text-xs shrink-0 mt-0.5">3</span>
+              <div><strong class="text-gray-300">Activate:</strong> Activate the algo between 8:30 AM and 9:15 AM only. Late activation may alter algo logic.</div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="w-5 h-5 rounded-full gold-btn flex items-center justify-center text-black font-bold text-xs shrink-0 mt-0.5">4</span>
+              <div><strong class="text-gray-300">Specified Days Only:</strong> Activate only on the specified days mentioned in the algo card.</div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="w-5 h-5 rounded-full gold-btn flex items-center justify-center text-black font-bold text-xs shrink-0 mt-0.5">5</span>
+              <div><strong class="text-gray-300">Go Live:</strong> Login with your broker and automate real trades in your account.</div>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="glass rounded-xl border border-gray-800 hover:border-yellow-700/30 transition-all">
+        <summary class="flex items-center justify-between p-4 sm:p-5 font-semibold text-gray-200 hover:text-yellow-400 transition-colors cursor-pointer text-sm sm:text-base">
+          What capital is required to start?
+          <i class="fa-solid fa-chevron-down text-sm text-yellow-500 faq-chev shrink-0 ml-3"></i>
+        </summary>
+        <div class="px-4 sm:px-5 pb-4 sm:pb-5 text-gray-500 text-sm leading-relaxed">
+          <p class="mb-3">STRATX offers structured basket tiers:</p>
+          <!-- Fixed tier alignment with consistent flex layout -->
+          <ul class="tier-list space-y-2.5">
+            <li>
+              <span class="tier-dot"></span>
+              <span><strong class="text-yellow-400">ALPHA</strong> — Entry tier, available from ₹6L</span>
+            </li>
+            <li>
+              <span class="tier-dot"></span>
+              <span><strong class="text-yellow-400">ALPHA+</strong> — Mid tier with expanded capital allocation</span>
+            </li>
+            <li>
+              <span class="tier-dot"></span>
+              <span><strong class="text-yellow-400">ALPHA X</strong> — Advanced tier for structured HNI capital</span>
+            </li>
+          </ul>
+          <p class="mt-3">Suitability depends on individual risk capacity and investment profile.</p>
+        </div>
+      </details>
+
+      <details class="glass rounded-xl border border-gray-800 hover:border-yellow-700/30 transition-all">
+        <summary class="flex items-center justify-between p-4 sm:p-5 font-semibold text-gray-200 hover:text-yellow-400 transition-colors cursor-pointer text-sm sm:text-base">
+          How is risk managed?
+          <i class="fa-solid fa-chevron-down text-sm text-yellow-500 faq-chev shrink-0 ml-3"></i>
+        </summary>
+        <div class="px-4 sm:px-5 pb-4 sm:pb-5 text-gray-500 text-sm leading-relaxed">
+          <p class="mb-2">Risk is defined before capital deployment:</p>
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2"><i class="fa-solid fa-shield text-yellow-400 text-xs shrink-0"></i> Basket-level exposure control</div>
+            <div class="flex items-center gap-2"><i class="fa-solid fa-shield text-yellow-400 text-xs shrink-0"></i> Predefined stoploss on every position</div>
+            <div class="flex items-center gap-2"><i class="fa-solid fa-shield text-yellow-400 text-xs shrink-0"></i> Structured capital allocation per tier</div>
+            <div class="flex items-center gap-2"><i class="fa-solid fa-shield text-yellow-400 text-xs shrink-0"></i> Continuous performance monitoring</div>
+          </div>
+          <p class="mt-2 text-yellow-500/60 text-xs">Risk cannot be eliminated. It can only be structured and managed.</p>
+        </div>
+      </details>
+
+      <details class="glass rounded-xl border border-gray-800 hover:border-yellow-700/30 transition-all">
+        <summary class="flex items-center justify-between p-4 sm:p-5 font-semibold text-gray-200 hover:text-yellow-400 transition-colors cursor-pointer text-sm sm:text-base">
+          Do you guarantee returns?
+          <i class="fa-solid fa-chevron-down text-sm text-yellow-500 faq-chev shrink-0 ml-3"></i>
+        </summary>
+        <p class="px-4 sm:px-5 pb-4 sm:pb-5 text-gray-500 text-sm leading-relaxed">No. Market participation involves inherent risk. STRATX does not guarantee returns and does not offer investment advice. Performance should be evaluated based on risk-adjusted returns, drawdown management, and consistency across market conditions.</p>
+      </details>
+
+      <details class="glass rounded-xl border border-gray-800 hover:border-yellow-700/30 transition-all">
+        <summary class="flex items-center justify-between p-4 sm:p-5 font-semibold text-gray-200 hover:text-yellow-400 transition-colors cursor-pointer text-sm sm:text-base">
+          Can I run this alongside my existing equity portfolio?
+          <i class="fa-solid fa-chevron-down text-sm text-yellow-500 faq-chev shrink-0 ml-3"></i>
+        </summary>
+        <p class="px-4 sm:px-5 pb-4 sm:pb-5 text-gray-500 text-sm leading-relaxed">Yes. STRATX is specifically designed to complement long-term equity portfolios by providing structured intraday index exposure on NSE and BSE as a systematic overlay with capital efficiency and defined risk.</p>
+      </details>
+
+      <details class="glass rounded-xl border border-gray-800 hover:border-yellow-700/30 transition-all">
+        <summary class="flex items-center justify-between p-4 sm:p-5 font-semibold text-gray-200 hover:text-yellow-400 transition-colors cursor-pointer text-sm sm:text-base">
+          Is STRATX fully automated?
+          <i class="fa-solid fa-chevron-down text-sm text-yellow-500 faq-chev shrink-0 ml-3"></i>
+        </summary>
+        <p class="px-4 sm:px-5 pb-4 sm:pb-5 text-gray-500 text-sm leading-relaxed">STRATX operates through a systematic execution framework supported by continuous monitoring and structured risk controls. Monitoring and structured oversight are maintained to ensure adherence to defined logic.</p>
+      </details>
+
+      <details class="glass rounded-xl border border-gray-800 hover:border-yellow-700/30 transition-all">
+        <summary class="flex items-center justify-between p-4 sm:p-5 font-semibold text-gray-200 hover:text-yellow-400 transition-colors cursor-pointer text-sm sm:text-base">
+          How are strategies developed?
+          <i class="fa-solid fa-chevron-down text-sm text-yellow-500 faq-chev shrink-0 ml-3"></i>
+        </summary>
+        <div class="px-4 sm:px-5 pb-4 sm:pb-5 text-gray-500 text-sm leading-relaxed">
+          <p class="mb-2">Strategies undergo a rigorous validation pipeline:</p>
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2"><i class="fa-solid fa-arrow-right text-yellow-400 text-xs shrink-0"></i> Research and logic development</div>
+            <div class="flex items-center gap-2"><i class="fa-solid fa-arrow-right text-yellow-400 text-xs shrink-0"></i> Validation across multiple market conditions and regimes</div>
+            <div class="flex items-center gap-2"><i class="fa-solid fa-arrow-right text-yellow-400 text-xs shrink-0"></i> Risk and drawdown stability validation</div>
+            <div class="flex items-center gap-2"><i class="fa-solid fa-arrow-right text-yellow-400 text-xs shrink-0"></i> Performance consistency checks</div>
+          </div>
+          <p class="mt-2">Only validated frameworks are deployed.</p>
+        </div>
+      </details>
+
+      <details class="glass rounded-xl border border-gray-800 hover:border-yellow-700/30 transition-all">
+        <summary class="flex items-center justify-between p-4 sm:p-5 font-semibold text-gray-200 hover:text-yellow-400 transition-colors cursor-pointer text-sm sm:text-base">
+          Who should NOT consider STRATX?
+          <i class="fa-solid fa-chevron-down text-sm text-yellow-500 faq-chev shrink-0 ml-3"></i>
+        </summary>
+        <div class="px-4 sm:px-5 pb-4 sm:pb-5 text-gray-500 text-sm leading-relaxed">
+          <p class="mb-2">STRATX is built for structured, disciplined capital participants. Not suitable for:</p>
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2"><i class="fa-solid fa-xmark text-red-400 text-xs shrink-0"></i> Individuals expecting guaranteed returns</div>
+            <div class="flex items-center gap-2"><i class="fa-solid fa-xmark text-red-400 text-xs shrink-0"></i> High-leverage speculative traders</div>
+            <div class="flex items-center gap-2"><i class="fa-solid fa-xmark text-red-400 text-xs shrink-0"></i> Those unwilling to follow systematic discipline</div>
+          </div>
+        </div>
+      </details>
+
+      <details class="glass rounded-xl border border-gray-800 hover:border-yellow-700/30 transition-all">
+        <summary class="flex items-center justify-between p-4 sm:p-5 font-semibold text-gray-200 hover:text-yellow-400 transition-colors cursor-pointer text-sm sm:text-base">
+          Is STRATX an advisory or PMS service?
+          <i class="fa-solid fa-chevron-down text-sm text-yellow-500 faq-chev shrink-0 ml-3"></i>
+        </summary>
+        <p class="px-4 sm:px-5 pb-4 sm:pb-5 text-gray-500 text-sm leading-relaxed">No. STRATX provides a structured strategy deployment framework. It does not offer personalized investment advice and is not a Portfolio Management Service (PMS) or Investment Advisory.</p>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="bg-black border-t border-yellow-900/15 py-10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+      <img src="https://bkstarling.github.io/p1/v1_STRATX_PNG.png" alt="StratX Algo" class="h-14 w-auto object-contain"/>
+      <p class="text-sm text-center text-gray-600">&copy; 2026 StratX Algo. All rights reserved.</p>
+      <div class="flex items-center gap-2.5 sm:gap-3">
+        <a href="https://trade.stratxalgo.in" target="_blank"
+           class="flex items-center gap-1.5 px-4 py-2 gold-btn text-black text-sm font-bold rounded-lg">
+          <i class="fa-solid fa-bolt text-xs"></i> Trade Now
+        </a>
+        <a href="https://x.com/StratXalgo" target="_blank" aria-label="Twitter"
+           class="w-8 h-8 border border-gray-800 hover:border-blue-400 hover:text-blue-400 rounded-lg flex items-center justify-center text-sm text-gray-500 transition-all">
+          <i class="fa-brands fa-x-twitter"></i>
+        </a>
+        <a href="#" aria-label="LinkedIn"
+           class="w-8 h-8 border border-gray-800 hover:border-blue-500 hover:text-blue-500 rounded-lg flex items-center justify-center text-sm text-gray-500 transition-all">
+          <i class="fa-brands fa-linkedin-in"></i>
+        </a>
+        <a href="https://www.instagram.com/stratxalgo?igsh=aG9xNTNzeXF5NXJt&utm_source=qr" target="_blank" aria-label="Instagram"
+           class="w-8 h-8 border border-gray-800 hover:border-pink-500 hover:text-pink-500 rounded-lg flex items-center justify-center text-sm text-gray-500 transition-all">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://t.me/StratX_Algo" target="_blank" aria-label="Telegram"
+           class="w-8 h-8 border border-gray-800 hover:border-cyan-400 hover:text-cyan-400 rounded-lg flex items-center justify-center text-sm text-gray-500 transition-all">
+          <i class="fa-brands fa-telegram"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════ MOBILE CTA ═══════════ -->
+<div id="fixed-cta" class="fixed bottom-0 left-0 right-0 z-50 p-3 bg-black/96 backdrop-blur-md border-t border-yellow-900/20 gap-2">
+  <a href="https://trade.stratxalgo.in" target="_blank"
+     class="flex-1 flex items-center justify-center gap-2 py-3 gold-btn rounded-xl text-sm font-bold font-display">
+    <i class="fa-solid fa-bolt text-xs"></i> Trade Now
+  </a>
+  <button onclick="openModal()"
+          class="flex items-center justify-center px-4 py-3 border border-gray-700 text-gray-300 rounded-xl text-sm hover:border-yellow-500 transition-colors">
+    <i class="fa-regular fa-calendar"></i>
+  </button>
+</div>
+
+<!-- ═══════════ MODAL ═══════════ -->
+<div id="modal-overlay" class="fixed inset-0 z-[100] items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+  <div class="bg-gray-950 rounded-2xl w-full max-w-lg shadow-2xl border border-yellow-900/22 overflow-y-auto max-h-[90vh]">
+    <div class="flex items-center justify-between p-5 sm:p-6 border-b border-gray-800">
+      <div>
+        <h3 class="font-display font-bold text-lg sm:text-xl text-white">Book Strategy Discussion</h3>
+        <p class="text-xs text-gray-500 mt-0.5">Tell us about your trading goals</p>
+      </div>
+      <button onclick="closeModal()" aria-label="Close"
+              class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-200 hover:bg-gray-800 rounded-lg transition-all">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <form class="p-5 sm:p-6 space-y-4" onsubmit="submitForm(event)">
+      <div>
+        <label class="block text-sm font-medium mb-1.5 text-gray-300" for="f-name">Full Name</label>
+        <input type="text" id="f-name" required placeholder="Rohan Sharma"
+               class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-sm text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 placeholder-gray-600 transition-all"/>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1.5 text-gray-300" for="f-email">Email Address</label>
+        <input type="email" id="f-email" required placeholder="rohan@example.com"
+               class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-sm text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 placeholder-gray-600 transition-all"/>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-2 text-gray-300">Primary Goal</label>
+        <div class="grid grid-cols-2 gap-2">
+          <label class="flex items-center gap-2 text-sm cursor-pointer text-gray-400 p-2.5 rounded-lg border border-gray-800 hover:border-yellow-700/35 transition-all"><input type="radio" name="goal" value="preservation" class="accent-yellow-500 shrink-0"/> Capital Preservation</label>
+          <label class="flex items-center gap-2 text-sm cursor-pointer text-gray-400 p-2.5 rounded-lg border border-gray-800 hover:border-yellow-700/35 transition-all"><input type="radio" name="goal" value="returns" class="accent-yellow-500 shrink-0"/> Systematic Returns</label>
+          <label class="flex items-center gap-2 text-sm cursor-pointer text-gray-400 p-2.5 rounded-lg border border-gray-800 hover:border-yellow-700/35 transition-all"><input type="radio" name="goal" value="augmentation" class="accent-yellow-500 shrink-0"/> Portfolio Augmentation</label>
+          <label class="flex items-center gap-2 text-sm cursor-pointer text-gray-400 p-2.5 rounded-lg border border-gray-800 hover:border-yellow-700/35 transition-all"><input type="radio" name="goal" value="other" class="accent-yellow-500 shrink-0"/> Other</label>
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1.5 text-gray-300" for="f-phone">Phone Number</label>
+        <div class="flex gap-2">
+          <span class="px-3 py-3 bg-gray-900 border border-gray-700 rounded-xl text-sm text-gray-500 mono whitespace-nowrap">+91</span>
+          <input type="tel" id="f-phone" required placeholder="98765 43210" pattern="[0-9]{10}"
+                 class="flex-1 px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-sm text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 placeholder-gray-600 transition-all"/>
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1.5 text-gray-300" for="f-capital">Capital Tier</label>
+        <select id="f-capital" required
+                class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-sm text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all">
+          <option value="" disabled selected>Select your tier</option>
+          <option value="alpha">ALPHA — ₹6 Lakhs</option>
+          <option value="alpha-plus">ALPHA+ — ₹10 to 15 Lakhs</option>
+          <option value="alpha-x">ALPHA X — ₹25 Lakhs and above</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-2 text-gray-300">Existing equity portfolio?</label>
+        <div class="flex gap-5">
+          <label class="flex items-center gap-2 text-sm cursor-pointer text-gray-400"><input type="radio" name="portfolio" value="yes" class="accent-yellow-500"/> Yes</label>
+          <label class="flex items-center gap-2 text-sm cursor-pointer text-gray-400"><input type="radio" name="portfolio" value="no" class="accent-yellow-500"/> No</label>
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1.5 text-gray-300" for="f-exp">Trading Experience</label>
+        <select id="f-exp" required
+                class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-sm text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all">
+          <option value="" disabled selected>Select experience level</option>
+          <option value="beginner">Beginner (less than 1 year)</option>
+          <option value="intermediate">Intermediate (1 to 3 years)</option>
+          <option value="advanced">Advanced (3+ years)</option>
+        </select>
+      </div>
+      <button type="submit"
+              class="w-full flex items-center justify-center gap-2 py-3.5 gold-btn rounded-xl font-display font-bold text-base">
+        <i class="fa-solid fa-calendar-check"></i> Book My Discussion Slot
+      </button>
+      <p class="text-xs text-gray-600 text-center">We'll reach out within 24 hours to confirm your slot.</p>
+    </form>
+  </div>
+</div>
+
+<script>
+// ── MENU ──
+function toggleMenu(){
+  const m=document.getElementById('mobile-menu'), ic=document.getElementById('ham-icon');
+  const o=m.classList.toggle('open');
+  ic.className = o ? 'fa-solid fa-xmark text-base' : 'fa-solid fa-bars text-base';
+}
+function closeMenu(){
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('ham-icon').className='fa-solid fa-bars text-base';
+}
+
+// ── MODAL ──
+function openModal(){ document.getElementById('modal-overlay').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeModal(){ document.getElementById('modal-overlay').classList.remove('open'); document.body.style.overflow=''; }
+document.getElementById('modal-overlay').addEventListener('click',function(e){ if(e.target===this) closeModal(); });
+
+// ── FORM ──
+function submitForm(e){
+  e.preventDefault();
+  const btn=e.target.querySelector('button[type=submit]');
+  btn.innerHTML='<i class="fa-solid fa-circle-check"></i> Submitted! We\'ll contact you soon.';
+  btn.disabled=true;
+  setTimeout(()=>closeModal(),2500);
+}
+
+// ── REVEAL ──
+const ro = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target); } });
+},{threshold:0.07});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+// ── SMOOTH SCROLL ──
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',function(e){
+    const h=this.getAttribute('href');
+    if(h==='#') return;
+    e.preventDefault();
+    const t=document.querySelector(h);
+    if(t) t.scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>
