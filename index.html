@@ -728,67 +728,78 @@
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
-    <form class="p-5 sm:p-6 space-y-4" onsubmit="submitForm(event)">
-      <div>
-        <label class="block text-sm font-medium mb-1.5 text-gray-300" for="f-name">Full Name</label>
-        <input type="text" id="f-name" required placeholder="Rohan Sharma"
-               class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-sm text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 placeholder-gray-600 transition-all"/>
-      </div>
-      <div>
-        <label class="block text-sm font-medium mb-1.5 text-gray-300" for="f-email">Email Address</label>
-        <input type="email" id="f-email" required placeholder="rohan@example.com"
-               class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-sm text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 placeholder-gray-600 transition-all"/>
-      </div>
-      <div>
-        <label class="block text-sm font-medium mb-2 text-gray-300">Primary Goal</label>
-        <div class="grid grid-cols-2 gap-2">
-          <label class="flex items-center gap-2 text-sm cursor-pointer text-gray-400 p-2.5 rounded-lg border border-gray-800 hover:border-yellow-700/35 transition-all"><input type="radio" name="goal" value="preservation" class="accent-yellow-500 shrink-0"/> Capital Preservation</label>
-          <label class="flex items-center gap-2 text-sm cursor-pointer text-gray-400 p-2.5 rounded-lg border border-gray-800 hover:border-yellow-700/35 transition-all"><input type="radio" name="goal" value="returns" class="accent-yellow-500 shrink-0"/> Systematic Returns</label>
-          <label class="flex items-center gap-2 text-sm cursor-pointer text-gray-400 p-2.5 rounded-lg border border-gray-800 hover:border-yellow-700/35 transition-all"><input type="radio" name="goal" value="augmentation" class="accent-yellow-500 shrink-0"/> Portfolio Augmentation</label>
-          <label class="flex items-center gap-2 text-sm cursor-pointer text-gray-400 p-2.5 rounded-lg border border-gray-800 hover:border-yellow-700/35 transition-all"><input type="radio" name="goal" value="other" class="accent-yellow-500 shrink-0"/> Other</label>
-        </div>
-      </div>
-      <div>
-        <label class="block text-sm font-medium mb-1.5 text-gray-300" for="f-phone">Phone Number</label>
-        <div class="flex gap-2">
-          <span class="px-3 py-3 bg-gray-900 border border-gray-700 rounded-xl text-sm text-gray-500 mono whitespace-nowrap">+91</span>
-          <input type="tel" id="f-phone" required placeholder="98765 43210" pattern="[0-9]{10}"
-                 class="flex-1 px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-sm text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 placeholder-gray-600 transition-all"/>
-        </div>
-      </div>
-      <div>
-        <label class="block text-sm font-medium mb-1.5 text-gray-300" for="f-capital">Capital Tier</label>
-        <select id="f-capital" required
-                class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-sm text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all">
-          <option value="" disabled selected>Select your tier</option>
-          <option value="alpha">ALPHA — ₹6 Lakhs</option>
-          <option value="alpha-plus">ALPHA+ — ₹10 to 15 Lakhs</option>
-          <option value="alpha-x">ALPHA X — ₹25 Lakhs and above</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium mb-2 text-gray-300">Existing equity portfolio?</label>
-        <div class="flex gap-5">
-          <label class="flex items-center gap-2 text-sm cursor-pointer text-gray-400"><input type="radio" name="portfolio" value="yes" class="accent-yellow-500"/> Yes</label>
-          <label class="flex items-center gap-2 text-sm cursor-pointer text-gray-400"><input type="radio" name="portfolio" value="no" class="accent-yellow-500"/> No</label>
-        </div>
-      </div>
-      <div>
-        <label class="block text-sm font-medium mb-1.5 text-gray-300" for="f-exp">Trading Experience</label>
-        <select id="f-exp" required
-                class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-sm text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all">
-          <option value="" disabled selected>Select experience level</option>
-          <option value="beginner">Beginner (less than 1 year)</option>
-          <option value="intermediate">Intermediate (1 to 3 years)</option>
-          <option value="advanced">Advanced (3+ years)</option>
-        </select>
-      </div>
-      <button type="submit"
-              class="w-full flex items-center justify-center gap-2 py-3.5 gold-btn rounded-xl font-display font-bold text-base">
-        <i class="fa-solid fa-calendar-check"></i> Book My Discussion Slot
-      </button>
-      <p class="text-xs text-gray-600 text-center">We'll reach out within 24 hours to confirm your slot.</p>
-    </form>
+   <form class="p-5 sm:p-6 space-y-4" action="https://api.web3forms.com/submit" method="POST" onsubmit="submitForm(event)">
+  <input type="hidden" name="access_key" value="22ab5692-5a49-4716-b0af-8a0f2aadf8ee">
+  <input type="hidden" name="subject" value="New Strategy Discussion Request — StratX Algo">
+  <input type="hidden" name="redirect" value="false">
+
+  <div>
+    <label class="block text-sm font-medium mb-1.5 text-gray-300" for="f-name">Full Name</label>
+    <input type="text" id="f-name" name="name" required placeholder="Rohan Sharma"
+           class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-sm text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 placeholder-gray-600 transition-all"/>
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-1.5 text-gray-300" for="f-email">Email Address</label>
+    <input type="email" id="f-email" name="email" required placeholder="rohan@example.com"
+           class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-sm text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 placeholder-gray-600 transition-all"/>
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-2 text-gray-300">Primary Goal</label>
+    <div class="grid grid-cols-2 gap-2">
+      <label class="flex items-center gap-2 text-sm cursor-pointer text-gray-400 p-2.5 rounded-lg border border-gray-800 hover:border-yellow-700/35 transition-all"><input type="radio" name="primary_goal" value="Capital Preservation" class="accent-yellow-500 shrink-0"/> Capital Preservation</label>
+      <label class="flex items-center gap-2 text-sm cursor-pointer text-gray-400 p-2.5 rounded-lg border border-gray-800 hover:border-yellow-700/35 transition-all"><input type="radio" name="primary_goal" value="Systematic Returns" class="accent-yellow-500 shrink-0"/> Systematic Returns</label>
+      <label class="flex items-center gap-2 text-sm cursor-pointer text-gray-400 p-2.5 rounded-lg border border-gray-800 hover:border-yellow-700/35 transition-all"><input type="radio" name="primary_goal" value="Portfolio Augmentation" class="accent-yellow-500 shrink-0"/> Portfolio Augmentation</label>
+      <label class="flex items-center gap-2 text-sm cursor-pointer text-gray-400 p-2.5 rounded-lg border border-gray-800 hover:border-yellow-700/35 transition-all"><input type="radio" name="primary_goal" value="Other" class="accent-yellow-500 shrink-0"/> Other</label>
+    </div>
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-1.5 text-gray-300" for="f-phone">Phone Number</label>
+    <div class="flex gap-2">
+      <span class="px-3 py-3 bg-gray-900 border border-gray-700 rounded-xl text-sm text-gray-500 mono whitespace-nowrap">+91</span>
+      <input type="tel" id="f-phone" name="phone" required placeholder="98765 43210" pattern="[0-9]{10}"
+             class="flex-1 px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-sm text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 placeholder-gray-600 transition-all"/>
+    </div>
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-1.5 text-gray-300" for="f-capital">Capital Tier</label>
+    <select id="f-capital" name="capital_tier" required
+            class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-sm text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all">
+      <option value="" disabled selected>Select your tier</option>
+      <option value="ALPHA — ₹6 Lakhs">ALPHA — ₹6 Lakhs</option>
+      <option value="ALPHA+ — ₹10 to 15 Lakhs">ALPHA+ — ₹10 to 15 Lakhs</option>
+      <option value="ALPHA X — ₹25 Lakhs and above">ALPHA X — ₹25 Lakhs and above</option>
+    </select>
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-2 text-gray-300">Existing equity portfolio?</label>
+    <div class="flex gap-5">
+      <label class="flex items-center gap-2 text-sm cursor-pointer text-gray-400"><input type="radio" name="existing_portfolio" value="Yes" class="accent-yellow-500"/> Yes</label>
+      <label class="flex items-center gap-2 text-sm cursor-pointer text-gray-400"><input type="radio" name="existing_portfolio" value="No" class="accent-yellow-500"/> No</label>
+    </div>
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-1.5 text-gray-300" for="f-exp">Trading Experience</label>
+    <select id="f-exp" name="trading_experience" required
+            class="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-sm text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all">
+      <option value="" disabled selected>Select experience level</option>
+      <option value="Beginner (less than 1 year)">Beginner (less than 1 year)</option>
+      <option value="Intermediate (1 to 3 years)">Intermediate (1 to 3 years)</option>
+      <option value="Advanced (3+ years)">Advanced (3+ years)</option>
+    </select>
+  </div>
+
+  <button type="submit"
+          class="w-full flex items-center justify-center gap-2 py-3.5 gold-btn rounded-xl font-display font-bold text-base">
+    <i class="fa-solid fa-calendar-check"></i> Book My Discussion Slot
+  </button>
+  <p class="text-xs text-gray-600 text-center">We'll reach out within 24 hours to confirm your slot.</p>
+</form>
   </div>
 </div>
 
@@ -810,12 +821,34 @@ function closeModal(){ document.getElementById('modal-overlay').classList.remove
 document.getElementById('modal-overlay').addEventListener('click',function(e){ if(e.target===this) closeModal(); });
 
 // ── FORM ──
-function submitForm(e){
+function submitForm(e) {
   e.preventDefault();
-  const btn=e.target.querySelector('button[type=submit]');
-  btn.innerHTML='<i class="fa-solid fa-circle-check"></i> Submitted! We\'ll contact you soon.';
-  btn.disabled=true;
-  setTimeout(()=>closeModal(),2500);
+  const btn = e.target.querySelector('button[type=submit]');
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+  btn.disabled = true;
+
+  const formData = new FormData(e.target);
+
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    body: formData
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Submitted! We\'ll contact you soon.';
+      setTimeout(() => closeModal(), 2500);
+    } else {
+      btn.innerHTML = '<i class="fa-solid fa-calendar-check"></i> Book My Discussion Slot';
+      btn.disabled = false;
+      alert('Something went wrong. Please try again.');
+    }
+  })
+  .catch(() => {
+    btn.innerHTML = '<i class="fa-solid fa-calendar-check"></i> Book My Discussion Slot';
+    btn.disabled = false;
+    alert('Network error. Please try again.');
+  });
 }
 
 // ── REVEAL ──
